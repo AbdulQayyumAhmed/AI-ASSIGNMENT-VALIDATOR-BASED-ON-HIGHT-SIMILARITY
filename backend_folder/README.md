@@ -1,4 +1,14 @@
+---
+title: Assignment Validator Backend
+emoji: 🛡️
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Backend API Endpoints
+
 
 Hugging Face Spaces per aapka backend successfully run ho gaya hai! Jo `{"detail":"Not Found"}` aapko root URL (jaise `https://abdulqayyum360-backend.hf.space/`) pe show ho raha hai, wo is liye hai kyunki aapke code mein root `/` pe koi data nahi bheja gaya. Yeh bilkul normal hai! Aapke saare asl endpoints perfectly kaam kar rahay hain.
 

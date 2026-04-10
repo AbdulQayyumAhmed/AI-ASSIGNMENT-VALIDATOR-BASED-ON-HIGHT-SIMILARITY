@@ -8,6 +8,11 @@ from datetime import datetime
 
 app = FastAPI(title="Bootcamp Smart Validator")
 
+@app.get("/")
+def read_root():
+    return {"message": "Assignment Validator API is running!"}
+
+
 # 🔹 DOMAIN MAP
 DOMAIN_MAP = {
     "69c538969d2f7dcce6f2df26": "AI",
