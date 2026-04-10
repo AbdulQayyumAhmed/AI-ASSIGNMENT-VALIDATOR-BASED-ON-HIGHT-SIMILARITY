@@ -13,7 +13,7 @@ from datetime import datetime
 # ──────────────────────────────────────────────────────────────
 # CONFIG
 # ──────────────────────────────────────────────────────────────
-API_BASE = "https://abdulqayyum360-backend.hf.space/docs"
+API_BASE = "https://abdulqayyum360-backend.hf.space/"
 
 DOMAIN_MAP = {
     "69c538969d2f7dcce6f2df26": "AI",
@@ -594,7 +594,14 @@ if page == "Overview":
         st.error("Cannot reach the API. Make sure the FastAPI backend is running on port 8000.")
         st.stop()
 
-    df = pd.DataFrame(res.json())
+    try:
+        data = res.json()
+        df = pd.DataFrame(data)
+    except Exception as e:
+        st.error(f"Failed to parse API response as JSON: {e}")
+        st.code(res.text[:1000])
+        st.stop()
+
     for col in ("submitted", "missing", "total_students"):
         if col in df.columns:
             df[col] = pd.to_numeric(df[col], errors="coerce").fillna(0).astype(int)

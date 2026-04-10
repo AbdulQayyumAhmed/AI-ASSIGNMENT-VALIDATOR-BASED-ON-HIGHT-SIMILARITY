@@ -2,10 +2,12 @@ from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
 
-MONGO_URL = "mongodb+srv://user:uS3er2060@bootcamptracker.roknckd.mongodb.net/"
+load_dotenv()
+
+MONGO_URL = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URL)
 
-db = client["test"]
+db = client[os.getenv("DB_NAME", "test")]
 
 users_col = db["users"]
 assignments_col = db["assignments"]
