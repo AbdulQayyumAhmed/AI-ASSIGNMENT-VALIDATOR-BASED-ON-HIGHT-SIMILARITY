@@ -13,7 +13,7 @@ from datetime import datetime
 # ──────────────────────────────────────────────────────────────
 # CONFIG
 # ──────────────────────────────────────────────────────────────
-API_BASE = "https://abdulqayyum360-backend.hf.space/"
+API_BASE = "https://abdulqayyum360-backend.hf.space"
 
 DOMAIN_MAP = {
     "69c538969d2f7dcce6f2df26": "AI",
@@ -427,11 +427,12 @@ def ax(fig, xr=None, yr=None):
 # ──────────────────────────────────────────────────────────────
 # HELPERS
 # ──────────────────────────────────────────────────────────────
-def safe_get(url, timeout=8):
+def safe_get(url, timeout=15):
     try:
         r = requests.get(url, timeout=timeout)
-        return r if r.ok else None
-    except Exception:
+        return r
+    except Exception as e:
+        print(f"Request Error: {e}")
         return None
 
 
@@ -575,12 +576,15 @@ with st.sidebar:
             <div class="platform-item">{ico("link", 11, "#6c63ff")} Figma</div>
         </div>""", unsafe_allow_html=True)
 
-    api_ok = safe_get(f"{API_BASE}/assignment-status", timeout=3) is not None
+    res_check = safe_get(f"{API_BASE}/", timeout=5)
+    api_ok = res_check is not None and res_check.ok
+    
     st.markdown(f"""
     <div class="status">
         <span class="dot {'on' if api_ok else 'off'}"></span>
         <span>{"API · connected" if api_ok else "API · unreachable"}</span>
     </div>""", unsafe_allow_html=True)
+
 
 
 # ══════════════════════════════════════════════════════════════
@@ -591,7 +595,12 @@ if page == "Overview":
 
     res = safe_get(f"{API_BASE}/assignment-status")
     if res is None:
-        st.error("Cannot reach the API. Make sure the FastAPI backend is running on port 8000.")
+        st.error("Cannot reach the API. The server might be down or waking up.")
+        st.stop()
+    
+    if not res.ok:
+        st.error(f"API Error (Status {res.status_code}): {res.text}")
+        st.info("This usually means the backend is running but having trouble (e.g., connecting to MongoDB). Check your Secrets/Environment variables.")
         st.stop()
 
     try:
