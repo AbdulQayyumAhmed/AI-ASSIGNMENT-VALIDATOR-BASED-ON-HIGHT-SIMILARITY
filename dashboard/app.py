@@ -13,7 +13,7 @@ from datetime import datetime
 # ──────────────────────────────────────────────────────────────
 # CONFIG
 # ──────────────────────────────────────────────────────────────
-API_BASE = "http://127.0.0.1:8000"
+API_BASE = "https://abdulqayyum360-backend.hf.space/docs"
 
 DOMAIN_MAP = {
     "69c538969d2f7dcce6f2df26": "AI",
