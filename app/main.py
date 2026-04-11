@@ -10,8 +10,8 @@ app = FastAPI(title="Bootcamp Smart Validator")
 
 # 🔹 DOMAIN MAP
 DOMAIN_MAP = {
-    "69c538969d2f7dcce6f2df26": "AI",
-    "69c538969d2f7dcce6f2df24": "Web",
+    "69c61d786de2bafc381e9dd7": "AI",
+    "69c61d786de2bafc381e9dd5": "Web",
     "69c2304ccfe658657f11a4fd": "UI/UX"
 }
 
